@@ -1,4 +1,4 @@
-package test;
+package com.processor.test;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import processor.QueryProcessor;
+import com.processor.QueryProcessor;
 
 public class QueryProcessorTestCase 
 {

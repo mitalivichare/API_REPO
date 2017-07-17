@@ -1,10 +1,19 @@
-package processor;
+package com.processor;
 
 public class Criteria 
 {
 	private String columnName;
 	private String operator;
 	private String value;
+	
+	public Criteria()
+	{}
+	public Criteria(String columnName, String operator, String value) {
+		super();
+		this.columnName = columnName;
+		this.operator = operator;
+		this.value = value;
+	}
 	public String getColumnName() {
 		return columnName;
 	}
