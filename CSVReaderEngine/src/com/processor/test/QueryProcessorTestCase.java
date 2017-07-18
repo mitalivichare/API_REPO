@@ -18,32 +18,32 @@ public class QueryProcessorTestCase
 	private static Map<Integer,ArrayList<String>> dataSet;
 	
 	@BeforeClass
-	public void init()
+	public static void init()
 	{
 		queryProcessor=new QueryProcessor();
 		dataSet=new LinkedHashMap<Integer,ArrayList<String>>();
 	}
 	
-	@Test
+	/*@Test
 	public void selectAllWithoutWhereTestCase()
 	{
-		dataSet=queryProcessor.executeQuery("select * from d:/emp.csv");
-		assertNotNull(dataSet);
+		dataSet=queryProcessor.executeQuery("select * from emp");
+		assertNotNull(dataSet);	
 		display("selectAllWithoutWhereTestCase",dataSet);	
-	}
-	@Test
+	}*/
+	/*@Test
 	public void selectColumnsWithoutWhereTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,dept,name from d:/emp.csv");
+		dataSet=queryProcessor.executeQuery("select city,dept,name from emp");
 		assertNotNull(dataSet);
-		display("selectColumnsWithoutWhereTestCase",dataSet);
+		display("selectColumnWithoutWhereTestCase",dataSet);
 		
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void withWhereGreaterThanTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary>30000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary > 30000");
 		assertNotNull(dataSet);
 		display("withWhereGreaterThanTestCase",dataSet);
 		
@@ -52,7 +52,7 @@ public class QueryProcessorTestCase
 	@Test
 	public void withWhereLessThanTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary<35000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary < 35000");
 		assertNotNull(dataSet);
 		display("withWhereLessThanTestCase",dataSet);
 		
@@ -61,7 +61,7 @@ public class QueryProcessorTestCase
 	@Test
 	public void withWhereLessThanOrEqualToTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary<=35000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary <= 35000");
 		assertNotNull(dataSet);
 		display("withWhereLessThanOrEqualToTestCase",dataSet);
 		
@@ -70,7 +70,7 @@ public class QueryProcessorTestCase
 	@Test
 	public void withWhereGreaterThanOrEqualToTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary>=35000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
 		assertNotNull(dataSet);
 		display("withWhereLessThanOrEqualToTestCase",dataSet);
 		
@@ -79,16 +79,16 @@ public class QueryProcessorTestCase
 	@Test
 	public void withWhereNotEqualToTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary>=35000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
 		assertNotNull(dataSet);
 		display("withWhereNotEqualToTestCase",dataSet);
 		
-	}
+	}*/
 	
 	@Test
 	public void withWhereEqualAndNotEqualTestCase(){
 		
-		dataSet=queryProcessor.executeQuery("select city,name,salary from d:/emp.csv where salary>=30000 and salary<=38000");
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 30000 and salary <= 38000");
 		assertNotNull(dataSet);
 		display("withWhereEqualAndNotEqualTestCase",dataSet);
 		

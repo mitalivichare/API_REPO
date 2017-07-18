@@ -1,6 +1,6 @@
 package com.processor.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import com.processor.QueryParser;
 
 public class QueryParserTestCase {
 	
-	private static QueryParser queryParser;
+	private static QueryParser queryParser,queryParser1;
 	@BeforeClass
 	public static void init()
 	{
@@ -52,6 +52,23 @@ public class QueryParserTestCase {
 		criteriaList.add(new Criteria("esal","<=","20000"));
 		assertEquals("Multiple where condition test sucessfull", criteriaList.size(), queryParser.getCriteriaList().size());
 	}
+	
+	/*@Test
+	public void multipleColumnTestWithObject()
+	{
+		queryParser.extractParameters("select empid,ename,esal from emp where empid > 102 and esal <= 20000");
+		queryParser1=new QueryParser();
+		ArrayList<String> requiredColumnList=new ArrayList<>();
+		requiredColumnList.add("empid");
+		requiredColumnList.add("ename");
+		requiredColumnList.add("esal");
+		ArrayList<Criteria> criteriaList=new ArrayList<>();
+		criteriaList.add(new Criteria("empid",">","102"));
+		criteriaList.add(new Criteria("esal","<=","20000"));
+		queryParser1.setCriteriaList(criteriaList);
+		queryParser1.setRequiredColumnList(requiredColumnList);
+		assertSame("multipleColumnTestWithObject", queryParser1, queryParser);
+	}*/
 	
 	@AfterClass
 	public static void destroy()

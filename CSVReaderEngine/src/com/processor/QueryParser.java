@@ -8,7 +8,7 @@ public class QueryParser
 {
 	private ArrayList<String> requiredColumnList=null;
 	private ArrayList<Criteria> criteriaList=null;
-	private ArrayList<String> logicalOperatorList;
+	private ArrayList<String> logicalOperatorList=null;
 	private String groupByColumn=null;
 	private String orderByColumn= null;
 	private String sumFunction=null;
@@ -20,7 +20,7 @@ public class QueryParser
 	//Criteria criteria=new Criteria();
 	//private String baseQuery=null;
 
-	public void extractParameters(String query)
+	public QueryParser extractParameters(String query)
 	{
 		String[] orderBySplitedList;
 		String[] groupBySplitedList;
@@ -47,7 +47,7 @@ public class QueryParser
 					{
 						criteriaList=new ArrayList<>();
 						logicalOperatorList=new ArrayList<>();
-						String criteriaString=whereSplitedList[1].trim();//convert to string array
+						String criteriaString=whereSplitedList[1].trim();//store the criteria in a string object
 						String[] criteriaArray=criteriaString.split("\\s+"); //seperate all components and store it in an array for checking presence of and/or
 						for(String string : criteriaArray)
 						{
@@ -64,16 +64,13 @@ public class QueryParser
 						}
 						fillCriteria(whereComponents[0].trim());
 					}
-					else
+					fromSplitedList=whereSplitedList[0].split("from");
+					tableName=fromSplitedList[1].trim();
+					baseQuery=fromSplitedList[0].split("(\\s|,)+");
+					requiredColumnList=new ArrayList<>();
+					for(int i=1;i<baseQuery.length;i++)
 					{
-						fromSplitedList=whereSplitedList[0].split("from");
-						tableName=fromSplitedList[1].trim();
-						baseQuery=fromSplitedList[0].split("(\\s|,)+");
-						requiredColumnList=new ArrayList<>();
-						for(int i=1;i<baseQuery.length;i++)
-						{
-							requiredColumnList.add(baseQuery[i].trim());
-						}
+						requiredColumnList.add(baseQuery[i].trim());
 					}
 				}
 				
@@ -81,6 +78,8 @@ public class QueryParser
 			
 			
 		}
+		
+		return this;
 	}
 	
 	public void fillCriteria(String criteriaObject)
