@@ -82,7 +82,7 @@ public class QueryParser
 		return this;
 	}
 	
-	public void fillCriteria(String criteriaObject)
+	private void fillCriteria(String criteriaObject)
 	{
 		Criteria criteria=new Criteria();
 		pattern=Pattern.compile("(.*) ([!=|>=|<=|>|<|=]+) (.*)");
@@ -159,5 +159,15 @@ public class QueryParser
 	public void setTableName(String fileName) {
 		this.tableName = fileName;
 	}
+
+	@Override
+	public String toString() {
+		return "QueryParser [requiredColumnList=" + requiredColumnList + ", criteriaList=" + criteriaList
+				+ ", logicalOperatorList=" + logicalOperatorList + ", groupByColumn=" + groupByColumn
+				+ ", orderByColumn=" + orderByColumn + ", sumFunction=" + sumFunction + ", countFunction="
+				+ countFunction + ", tableName=" + tableName + "]";
+	}
+	
+	
 
 }

@@ -32,6 +32,11 @@ public class Criteria
 	public void setValue(String value) {
 		this.value = value;
 	}
+	@Override
+	public String toString() {
+		return "Criteria [columnName=" + columnName + ", operator=" + operator + ", value=" + value + "]";
+	}
+	
 	
 
 }
