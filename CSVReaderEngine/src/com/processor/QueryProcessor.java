@@ -20,7 +20,7 @@ public class QueryProcessor
 		{
 		dataSet=dataReader.fetchSelectiveColumnsData(queryParser.getRequiredColumnList(),dataReader.getAllHeaders(queryParser.geTableName()));
 		}*/
-		dataSet=dataReader.fetchDataWithwhereClause(queryParser.getRequiredColumnList(), dataReader.getAllHeaders(queryParser.geTableName()), queryParser.getCriteriaList(), queryParser.getLogicalOperatorList());
+		dataSet=dataReader.fetchDataWithWhereClause(queryParser.getRequiredColumnList(), dataReader.getAllHeaders(queryParser.geTableName()), queryParser.getCriteriaList(), queryParser.getLogicalOperatorList());
 		return dataSet;
 	}
 

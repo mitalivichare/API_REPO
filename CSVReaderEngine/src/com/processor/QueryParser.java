@@ -1,6 +1,7 @@
 package com.processor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,12 +12,13 @@ public class QueryParser
 	private ArrayList<String> logicalOperatorList=null;
 	private String groupByColumn=null;
 	private String orderByColumn= null;
-	private String sumFunction=null;
-	private String countFunction=null;
 	private String tableName;
 	private String[] baseQuery;
 	private Pattern pattern;
 	private Matcher matcher;
+	private String countColumn=null;
+	private String sumColumn=null;
+	private String[] countArray=null;
 	//Criteria criteria=new Criteria();
 	//private String baseQuery=null;
 
@@ -70,15 +72,24 @@ public class QueryParser
 					requiredColumnList=new ArrayList<>();
 					for(int i=1;i<baseQuery.length;i++)
 					{
+						if(baseQuery[i].trim().contains("count"))
+						{
+							countArray=baseQuery[i].split("\\(|\\)");
+							countColumn=countArray[1].trim();
+						}
+						else if(baseQuery[i].trim().contains("sum"))
+						{
+							countArray=baseQuery[i].split("\\(|\\)");
+							sumColumn=countArray[1].trim();
+						}
 						requiredColumnList.add(baseQuery[i].trim());
+						
 					}
+					
 				}
-				
-			}
-			
-			
-		}
 		
+			}	
+		}
 		return this;
 	}
 	
@@ -136,37 +147,40 @@ public class QueryParser
 		this.orderByColumn = orderByColumn;
 	}
 
-	public String getSumFunction() {
-		return sumFunction;
-	}
-
-	public void setSumFunction(String sumFunction) {
-		this.sumFunction = sumFunction;
-	}
-
-	public String getCountFunction() {
-		return countFunction;
-	}
-
-	public void setCountFunction(String countFunction) {
-		this.countFunction = countFunction;
-	}
-
 	public String geTableName() {
 		return tableName;
 	}
 
-	public void setTableName(String fileName) {
-		this.tableName = fileName;
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	
+
+	public String getCountColumn() {
+		return countColumn;
+	}
+
+	public void setCountColumn(String countColumn) {
+		this.countColumn = countColumn;
+	}
+
+	public String getSumColumn() {
+		return sumColumn;
+	}
+
+	public void setSumColumn(String sumColumn) {
+		this.sumColumn = sumColumn;
 	}
 
 	@Override
 	public String toString() {
 		return "QueryParser [requiredColumnList=" + requiredColumnList + ", criteriaList=" + criteriaList
 				+ ", logicalOperatorList=" + logicalOperatorList + ", groupByColumn=" + groupByColumn
-				+ ", orderByColumn=" + orderByColumn + ", sumFunction=" + sumFunction + ", countFunction="
-				+ countFunction + ", tableName=" + tableName + "]";
+				+ ", orderByColumn=" + orderByColumn + ", tableName=" + tableName + ", countColumn=" + countColumn
+				+ ", sumColumn=" + sumColumn + "]";
 	}
+
+	
 	
 	
 
