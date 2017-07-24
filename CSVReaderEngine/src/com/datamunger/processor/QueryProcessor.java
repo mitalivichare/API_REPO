@@ -1,8 +1,10 @@
-package com.processor;
+package com.datamunger.processor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.datamunger.parser.QueryParser;
 
 public class QueryProcessor 
 {

@@ -1,4 +1,4 @@
-package com.processor.test;
+package com.datamunger.test;
 
 import static org.junit.Assert.*;
 
@@ -11,12 +11,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.processor.Criteria;
-import com.processor.QueryParser;
+import com.datamunger.model.Criteria;
+import com.datamunger.parser.QueryParser;
 
 public class QueryParserTestCase {
 	
-	private static QueryParser queryParser,queryParser1;
+	private static QueryParser queryParser;
 	@Before
 	public void init()
 	{

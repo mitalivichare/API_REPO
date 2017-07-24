@@ -1,4 +1,4 @@
-package com.processor;
+package com.datamunger.model;
 
 public class AggregateFunctions 
 {

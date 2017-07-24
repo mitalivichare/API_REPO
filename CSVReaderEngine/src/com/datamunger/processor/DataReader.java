@@ -1,4 +1,4 @@
-package com.processor;
+package com.datamunger.processor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.datamunger.model.Criteria;
+import com.datamunger.parser.QueryParser;
 
 public class DataReader 
 {

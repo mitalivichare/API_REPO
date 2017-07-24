@@ -1,4 +1,4 @@
-package com.processor;
+package com.datamunger.processor;
 
 public class Instigator 
 {

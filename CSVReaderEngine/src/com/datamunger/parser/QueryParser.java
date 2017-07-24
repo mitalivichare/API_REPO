@@ -1,9 +1,11 @@
-package com.processor;
+package com.datamunger.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.datamunger.model.Criteria;
 
 public class QueryParser 
 {

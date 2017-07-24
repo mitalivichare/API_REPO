@@ -1,4 +1,4 @@
-package com.processor.test;
+package com.datamunger.test;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.processor.QueryProcessor;
+import com.datamunger.processor.QueryProcessor;
 
 public class QueryProcessorTestCase 
 {
