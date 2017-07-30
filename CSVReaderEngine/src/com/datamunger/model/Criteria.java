@@ -1,5 +1,6 @@
 package com.datamunger.model;
 
+
 public class Criteria 
 {
 	private String columnName;
