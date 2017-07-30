@@ -1,4 +1,4 @@
-package com.datamunger.processor;
+package com.stackroute.datamunger.processor;
 
 public class Instigator 
 {

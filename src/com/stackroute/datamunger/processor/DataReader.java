@@ -1,4 +1,4 @@
-package com.datamunger.processor;
+package com.stackroute.datamunger.processor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.datamunger.model.Criteria;
-import com.datamunger.parser.QueryParser;
+import com.stackroute.datamunger.model.Criteria;
+import com.stackroute.datamunger.parser.QueryParser;
 
 public class DataReader 
 {

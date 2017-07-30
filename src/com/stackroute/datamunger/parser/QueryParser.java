@@ -1,11 +1,11 @@
-package com.datamunger.parser;
+package com.stackroute.datamunger.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.datamunger.model.Criteria;
+import com.stackroute.datamunger.model.Criteria;
 
 public class QueryParser 
 {

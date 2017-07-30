@@ -1,4 +1,4 @@
-package com.datamunger.test;
+package com.stackroute.datamunger.test;
 
 import static org.junit.Assert.*;
 
@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.datamunger.model.Criteria;
-import com.datamunger.parser.QueryParser;
+import com.stackroute.datamunger.model.Criteria;
+import com.stackroute.datamunger.parser.QueryParser;
 
 public class QueryParserTestCase {
 	

@@ -1,5 +1,4 @@
-package com.datamunger.model;
-
+package com.stackroute.datamunger.model;
 
 public class Criteria 
 {

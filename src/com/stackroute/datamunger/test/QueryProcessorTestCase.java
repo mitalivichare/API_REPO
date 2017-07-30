@@ -1,4 +1,4 @@
-package com.datamunger.test;
+package com.stackroute.datamunger.test;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.datamunger.processor.QueryProcessor;
+import com.stackroute.datamunger.processor.QueryProcessor;
 
 public class QueryProcessorTestCase 
 {
@@ -24,23 +24,23 @@ public class QueryProcessorTestCase
 		dataSet=new LinkedHashMap<Integer,ArrayList<String>>();
 	}
 	
-	/*@Test
+	@Test
 	public void selectAllWithoutWhereTestCase()
 	{
 		dataSet=queryProcessor.executeQuery("select * from emp");
 		assertNotNull(dataSet);	
 		display("selectAllWithoutWhereTestCase",dataSet);	
-	}*/
-	/*@Test
+	}
+	@Test
 	public void selectColumnsWithoutWhereTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,dept,name from emp");
 		assertNotNull(dataSet);
 		display("selectColumnWithoutWhereTestCase",dataSet);
 		
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void withWhereGreaterThanTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary > 30000");
@@ -83,7 +83,7 @@ public class QueryProcessorTestCase
 		assertNotNull(dataSet);
 		display("withWhereNotEqualToTestCase",dataSet);
 		
-	}*/
+	}
 	
 	@Test
 	public void withWhereEqualAndNotEqualTestCase(){

@@ -1,10 +1,10 @@
-package com.datamunger.processor;
+package com.stackroute.datamunger.processor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.datamunger.parser.QueryParser;
+import com.stackroute.datamunger.parser.QueryParser;
 
 public class QueryProcessor 
 {
