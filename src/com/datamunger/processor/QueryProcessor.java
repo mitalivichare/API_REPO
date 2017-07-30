@@ -14,15 +14,18 @@ public class QueryProcessor
 	public Map<Integer,ArrayList<String>> executeQuery(String query)
 	{
 		queryParser=queryParser.extractParameters(query);
-		/*if(query.contains("*"))
+		if(query.contains("*"))
 		{
 		dataSet=dataReader.fetchAllData(queryParser);
+		}
+		else if(query.contains("where"))
+		{
+			dataSet=dataReader.fetchDataWithWhereClause(queryParser.getRequiredColumnList(), dataReader.getAllHeaders(queryParser.geTableName()), queryParser.getCriteriaList(), queryParser.getLogicalOperatorList());
 		}
 		else
 		{
 		dataSet=dataReader.fetchSelectiveColumnsData(queryParser.getRequiredColumnList(),dataReader.getAllHeaders(queryParser.geTableName()));
-		}*/
-		dataSet=dataReader.fetchDataWithWhereClause(queryParser.getRequiredColumnList(), dataReader.getAllHeaders(queryParser.geTableName()), queryParser.getCriteriaList(), queryParser.getLogicalOperatorList());
+		}
 		return dataSet;
 	}
 
