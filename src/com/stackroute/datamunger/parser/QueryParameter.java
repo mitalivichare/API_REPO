@@ -41,20 +41,7 @@ public class QueryParameter
 				aggregateFunctionsList.add(aggregateFuntion);
 			}
 			
-			//Method to fill Criteria Object
-			private void fillCriteria(String criteriaObject)
-			{
-				Criteria criteria=new Criteria();
-				pattern=Pattern.compile("(.*) ([!=|>=|<=|>|<|=]+) (.*)");
-				matcher=pattern.matcher(criteriaObject);
-				if(matcher.find())
-				{
-					criteria.setColumnName(matcher.group(1).trim());
-					criteria.setOperator(matcher.group(2).trim());
-					criteria.setValue(matcher.group(3).trim());
-				}
-				criteriaList.add(criteria);
-			}
+			
 			
 	public QueryParameter extractParameters(String query)
 	{
@@ -143,6 +130,22 @@ public class QueryParameter
 			}	
 		}
 		return this;
+	}
+	
+	//Method to fill Criteria Object
+	private void fillCriteria(String criteriaObject)
+	{
+		queryType="WHERE_QUERY";
+		Criteria criteria=new Criteria();
+		pattern=Pattern.compile("(.*) ([!=|>=|<=|>|<|=]+) (.*)");
+		matcher=pattern.matcher(criteriaObject);
+		if(matcher.find())
+		{
+			criteria.setColumnName(matcher.group(1).trim());
+			criteria.setOperator(matcher.group(2).trim());
+			criteria.setValue(matcher.group(3).trim());
+		}
+		criteriaList.add(criteria);
 	}
 
 	public ArrayList<String> getRequiredColumnList() {

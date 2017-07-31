@@ -115,4 +115,13 @@ public class DataReader
 		}
 		return flag;
 	}
+
+	public BufferedReader getBufferedReader() {
+		return bufferedReader;
+	}
+
+	public void setBufferedReader(BufferedReader bufferedReader) {
+		this.bufferedReader = bufferedReader;
+	}
+	
 }

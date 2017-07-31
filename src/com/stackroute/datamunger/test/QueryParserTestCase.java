@@ -23,14 +23,15 @@ public class QueryParserTestCase {
 	{
 		queryParser=new QueryParameter();
 	}
-	//@Test
+	@Test
 	public void tableNameTest()
 	{
 		queryParser.extractParameters("select * from emp");
 		
 		assertEquals("Table name test completed", "emp", queryParser.geTableName());
+		display("TableNameTest", queryParser);
 	}
-	//@Test
+	@Test
 	public void multipleColumnTest()
 	{
 		queryParser.extractParameters("select empid,ename from emp");
@@ -38,21 +39,24 @@ public class QueryParserTestCase {
 		requiredColumnList.add("empid");
 		requiredColumnList.add("ename");
 		assertEquals("Multiple column test completed", requiredColumnList, queryParser.getRequiredColumnList());
+		display("MultipleColumnTest", queryParser);
 	}
 	
-	//@Test
+	@Test
 	public void groupByColumnTest()
 	{
 		queryParser.extractParameters("select empid,ename from emp group by empid");
 		assertEquals("Group By column test completed", "empid", queryParser.getGroupByColumn());
+		display("GroupByColumnTest", queryParser);
 	}
 	
 
-	//@Test
+	@Test
 	public void orderByColumnTest()
 	{
 		queryParser.extractParameters("select empid,ename from emp order by empid");
 		assertEquals("Group By column test completed", "empid", queryParser.getOrderByColumn());
+		display("OrderByColumnTest", queryParser);
 	}
 	
 	@Test
@@ -66,7 +70,7 @@ public class QueryParserTestCase {
 		display("multipleWhereConditionTest", queryParser);
 	}
 	
-	//@Test
+	@Test
 	public void countColumnTest()
 	{
 		queryParser.extractParameters("select count(empid),sum(esal) from emp");
@@ -77,7 +81,7 @@ public class QueryParserTestCase {
 		display("countColumnTest", queryParser);
 	}
 	
-	//@Test
+	@Test
 	public void sumColumnTest()
 	{
 		queryParser.extractParameters("select sum(esal) from emp");
@@ -90,7 +94,7 @@ public class QueryParserTestCase {
 	@Test
 	public void sumColumnWithWhereTest()
 	{
-		queryParser.extractParameters("select sum(esal) from emp where city=Bangalore");
+		queryParser.extractParameters("select sum(esal) from emp where city = Bangalore");
 		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
 		//aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
 		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
