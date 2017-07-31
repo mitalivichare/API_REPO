@@ -3,7 +3,6 @@ package com.stackroute.datamunger.test;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,14 +23,14 @@ public class QueryProcessorTestCase
 		dataSet=new LinkedHashMap<Integer,ArrayList<String>>();
 	}
 	
-	@Test
+	//@Test
 	public void selectAllWithoutWhereTestCase()
 	{
 		dataSet=queryProcessor.executeQuery("select * from emp");
 		assertNotNull(dataSet);	
 		display("selectAllWithoutWhereTestCase",dataSet);	
 	}
-	@Test
+	//@Test
 	public void selectColumnsWithoutWhereTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,dept,name from emp");
@@ -40,7 +39,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereGreaterThanTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary > 30000");
@@ -49,7 +48,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereLessThanTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary < 35000");
@@ -58,7 +57,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereLessThanOrEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary <= 35000");
@@ -67,7 +66,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereGreaterThanOrEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
@@ -76,7 +75,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereNotEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
@@ -98,6 +97,7 @@ public class QueryProcessorTestCase
 		System.out.println(testCaseName);
 		System.out.println("================================================================");
 		System.out.println(dataSet);
+		System.out.println("================================================================");
 	}
 
 }

@@ -11,25 +11,26 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.stackroute.datamunger.model.Criteria;
-import com.stackroute.datamunger.parser.QueryParser;
+import com.stackroute.datamunger.parser.AggregateFunctions;
+import com.stackroute.datamunger.parser.Criteria;
+import com.stackroute.datamunger.parser.QueryParameter;
 
 public class QueryParserTestCase {
 	
-	private static QueryParser queryParser;
+	private static QueryParameter queryParser;
 	@Before
 	public void init()
 	{
-		queryParser=new QueryParser();
+		queryParser=new QueryParameter();
 	}
-	@Test
+	//@Test
 	public void tableNameTest()
 	{
 		queryParser.extractParameters("select * from emp");
 		
 		assertEquals("Table name test completed", "emp", queryParser.geTableName());
 	}
-	@Test
+	//@Test
 	public void multipleColumnTest()
 	{
 		queryParser.extractParameters("select empid,ename from emp");
@@ -39,11 +40,19 @@ public class QueryParserTestCase {
 		assertEquals("Multiple column test completed", requiredColumnList, queryParser.getRequiredColumnList());
 	}
 	
-	@Test
+	//@Test
 	public void groupByColumnTest()
 	{
 		queryParser.extractParameters("select empid,ename from emp group by empid");
 		assertEquals("Group By column test completed", "empid", queryParser.getGroupByColumn());
+	}
+	
+
+	//@Test
+	public void orderByColumnTest()
+	{
+		queryParser.extractParameters("select empid,ename from emp order by empid");
+		assertEquals("Group By column test completed", "empid", queryParser.getOrderByColumn());
 	}
 	
 	@Test
@@ -54,28 +63,38 @@ public class QueryParserTestCase {
 		criteriaList.add(new Criteria("empid",">","102"));
 		criteriaList.add(new Criteria("esal","<=","20000"));
 		assertEquals("Multiple where condition test sucessfull", criteriaList.size(), queryParser.getCriteriaList().size());
+		display("multipleWhereConditionTest", queryParser);
 	}
 	
-	@Test
+	//@Test
 	public void countColumnTest()
 	{
-		queryParser.extractParameters("select count(empid) from emp");
-		assertEquals("Count column test sucessfull", "empid", queryParser.getCountColumn());
+		queryParser.extractParameters("select count(empid),sum(esal) from emp");
+		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
+		aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("countColumnTest", queryParser);
 	}
 	
-	@Test
+	//@Test
 	public void sumColumnTest()
 	{
 		queryParser.extractParameters("select sum(esal) from emp");
-		assertEquals("Sum Column Test Sucessfull", "esal", queryParser.getSumColumn());
+		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
+		//aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("sumColumnTest", queryParser);
 	}
 	@Test
 	public void sumColumnWithWhereTest()
 	{
 		queryParser.extractParameters("select sum(esal) from emp where city=Bangalore");
-		assertEquals("Sum column test with multiple test sucessfull", "esal", queryParser.getSumColumn());
+		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
+		//aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("sumColumnWithWhereTest", queryParser);
 	}
 		
@@ -85,7 +104,7 @@ public class QueryParserTestCase {
 		queryParser=null;
 	}
 	
-	public void display(String testCaseName,QueryParser queryParser)
+	public void display(String testCaseName,QueryParameter queryParser)
 	{
 		System.out.println("============"+testCaseName+"==============");
 		System.out.println(queryParser);
