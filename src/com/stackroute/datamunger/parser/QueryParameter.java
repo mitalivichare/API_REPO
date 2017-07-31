@@ -55,7 +55,7 @@ public class QueryParameter
 			if(orderBySplitedList.length > 1)
 			{
 				orderByColumn=orderBySplitedList[1].trim();
-				queryType="ORDER_BY";
+				queryType="ORDER_BY_QUERY";
 			}
 			else
 			{
@@ -63,7 +63,7 @@ public class QueryParameter
 				if(groupBySplitedList.length > 1)
 				{
 					groupByColumn=groupBySplitedList[1].trim();
-					queryType="GROUP_BY";
+					queryType="GROUP_BY_QUERY";
 				}
 				else
 				{

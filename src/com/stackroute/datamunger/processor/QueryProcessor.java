@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.stackroute.datamunger.parser.QueryParameter;
-import com.stackroute.datamunger.reader.AggregateQuery;
-import com.stackroute.datamunger.reader.SimpleQuery;
-import com.stackroute.datamunger.reader.WhereQueryProcessor;
+import com.stackroute.datamunger.reader.AggregateTypeReader;
+import com.stackroute.datamunger.reader.GroupByTypeReader;
+import com.stackroute.datamunger.reader.OrderByTypeReader;
+import com.stackroute.datamunger.reader.SimpleTypeReader;
+import com.stackroute.datamunger.reader.WhereTypeReader;
 
 public class QueryProcessor 
 {
-	private SimpleQuery simpleQuery;
-	private WhereQueryProcessor whereProcessor;
-	private AggregateQuery aggregateQuery;
 	private Query queryObject;
 	Map<Integer,ArrayList<String>> dataSet;
 	private QueryParameter queryParser;
@@ -32,16 +31,23 @@ public class QueryProcessor
 			switch(queryParser.getQueryType())
 			{
 				case "SIMPLE_QUERY":
-					queryObject=new SimpleQuery();
-					//dataSet=simpleQuery.executeQuery(queryParser);
+					queryObject=new SimpleTypeReader();
 					break;
 					
 				case "WHERE_QUERY" :
-					queryObject=new WhereQueryProcessor();
+					queryObject=new WhereTypeReader();
+					break;
+					
+				case "ORDER_BY_QUERY" :
+					queryObject=new OrderByTypeReader();
+					break;
+					
+				case "GROUP_BY_QUERY" :
+					queryObject=new GroupByTypeReader();
 					break;
 				
 				case "AGGREGATE_QUERY" :
-					queryObject=new AggregateQuery();
+					queryObject=new AggregateTypeReader();
 					break;
 			
 			}
