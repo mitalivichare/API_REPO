@@ -8,12 +8,9 @@ import com.stackroute.datamunger.processor.Query;
 
 public class AggregateTypeReader implements Query
 {
-
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
 }
