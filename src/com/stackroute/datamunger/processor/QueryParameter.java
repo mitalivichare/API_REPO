@@ -16,7 +16,7 @@ public class QueryParameter
 	private ArrayList<String> logicalOperatorList=null;
 	private String groupByColumn=null;
 	private String orderByColumn= null;
-	private String tableName;
+	private String fileName;
 	private String[] baseQuery;
 	private Pattern pattern;
 	private Matcher matcher;
@@ -45,7 +45,7 @@ public class QueryParameter
 			}
 			
 			
-			
+	//Method to extract parameters from the query		
 	public QueryParameter extractParameters(String query)
 	{
 		String[] orderBySplitedList;
@@ -90,7 +90,7 @@ public class QueryParameter
 						fillCriteria(whereComponents[0].trim());
 					}
 					fromSplitedList=whereSplitedList[0].split("from");
-					tableName=fromSplitedList[1].trim();
+					fileName=fromSplitedList[1].trim();
 					baseQuery=fromSplitedList[0].split("(\\s|,)+");
 					requiredColumnList=new ArrayList<>();
 					for(int i=1;i<baseQuery.length;i++)
@@ -210,15 +210,12 @@ public class QueryParameter
 		this.orderByColumn = orderByColumn;
 	}
 
-	public String geTableName() {
-		return tableName;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-	public String getTableName() {
-		return tableName;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public String getCountColumn() {
@@ -258,7 +255,7 @@ public class QueryParameter
 	public String toString() {
 		return "QueryParser [requiredColumnList=" + requiredColumnList + ", criteriaList=" + criteriaList
 				+ ", aggregateFunctionsList=" + aggregateFunctionsList + ", logicalOperatorList=" + logicalOperatorList
-				+ ", groupByColumn=" + groupByColumn + ", orderByColumn=" + orderByColumn + ", tableName=" + tableName
+				+ ", groupByColumn=" + groupByColumn + ", orderByColumn=" + orderByColumn + ", tableName=" + fileName
 				+ ", baseQuery=" + Arrays.toString(baseQuery) + ", queryType=" + queryType + "]";
 	}
 

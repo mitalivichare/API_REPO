@@ -24,17 +24,17 @@ public class OrderByQueryProcessor implements Query {
 		Collections.sort(entries,new Comparator<Map.Entry<Integer,ArrayList<String>>>()
 				{
 					@Override
-					public int compare(Entry<Integer, ArrayList<String>> arg0, Entry<Integer, ArrayList<String>> arg1) {
+					public int compare(Entry<Integer, ArrayList<String>> data1, Entry<Integer, ArrayList<String>> data2) {
 						// TODO Auto-generated method stub
 						try
 						{
-							Double value1=Double.parseDouble(arg0.getValue().get(orderByColumnIndex));
-							Double value2=Double.parseDouble(arg1.getValue().get(orderByColumnIndex));
+							Double value1=Double.parseDouble(data1.getValue().get(orderByColumnIndex));
+							Double value2=Double.parseDouble(data2.getValue().get(orderByColumnIndex));
 							return value1.compareTo(value2);
 						}
 						catch(Exception e)
 						{
-							return arg0.getValue().get(orderByColumnIndex).compareTo(arg1.getValue().get(orderByColumnIndex));
+							return data1.getValue().get(orderByColumnIndex).compareTo(data2.getValue().get(orderByColumnIndex));
 						}
 					}
 				});

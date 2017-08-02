@@ -12,20 +12,20 @@ public class DataReader
 	
 	private String[] fileHeaders;
 	private BufferedReader bufferedReader;
-	private String line = "";
+	private String row = "";
 	ArrayList<String> rowData; //arraylist to store records
 	
 	ArrayList<Boolean> flags=null;//arraylist to store result of evaluation of the individual criteria
 	private double value,lineValue;
 	
 	//method for reading firstline of the file i.e the header columns
-	public String[] getAllHeaders(String tableName) 
+	public String[] getAllHeaders(String fileName) 
 	{
 		try 
 		{
-			bufferedReader = new BufferedReader(new FileReader("d:\\"+ tableName +".csv"));
-			line = bufferedReader.readLine();
-			fileHeaders = line.split(",");
+			bufferedReader = new BufferedReader(new FileReader(fileName));
+			row = bufferedReader.readLine();
+			fileHeaders = row.split(",");
 		}
 		catch (IOException e) {
 		}
@@ -136,3 +136,4 @@ public class DataReader
 	}
 	
 }
+

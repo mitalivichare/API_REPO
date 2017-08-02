@@ -11,9 +11,9 @@ public class AggregateQueryProcessor implements Query
 {
 	private DataReader dataReader = new DataReader();
 	private BufferedReader bufferedReader = null;
-	private String line = null;
-	private String tableName = null;
-	private String[] lineData = null;
+	private String row = null;
+	private String fileName = null;
+	private String[] rowsArray = null;
 	private String[] header = null;
 	private Map<Integer, ArrayList<String>> dataSet = null;
 	private ArrayList<String> rowData = null;
@@ -23,17 +23,17 @@ public class AggregateQueryProcessor implements Query
 	double value1 = 0.0;
 	double value2 = 0.0;
 	double result = 0.0;
+	int rowCount=0;
 
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParameter) 
 	{
 		// TODO Auto-generated method stub
-		tableName = queryParameter.getTableName();
-		header = dataReader.getAllHeaders(tableName);
+		fileName = queryParameter.getFileName();
+		header = dataReader.getAllHeaders(fileName);
 		aggregateFunctionList = queryParameter.getAggregateFunctionsList();
 		dataSet = new LinkedHashMap<>();
 		int rowIndex = 0;
-		int rowCount=0;
 
 		for (AggregateFunctions listObject : aggregateFunctionList)
 		{
@@ -43,18 +43,19 @@ public class AggregateQueryProcessor implements Query
 		try
 		{
 			bufferedReader = dataReader.getBufferedReader();
-			while ((this.line = bufferedReader.readLine()) != null)
+			while ((this.row = bufferedReader.readLine()) != null)
 			{
 				rowCount++;
-				lineData = line.split(",");
+				rowsArray = row.split(",");
 				int counter = 0;
 				for (AggregateFunctions listObject : aggregateFunctionList)
 				{
 					//String columnValue=lineData[aggregateColumnIndexes.get(counter)];
-					
-					listObject.setResult(evaluateAggregateFunction(listObject, lineData[aggregateColumnIndexes.get(counter)]));
+					if(!(rowsArray[aggregateColumnIndexes.get(counter)].equals("")))
+					{
+					evaluateAggregateFunction(listObject, rowsArray[aggregateColumnIndexes.get(counter)]);
 					counter++;
-					
+					}
 				}
 			}
 		}
@@ -80,8 +81,8 @@ public class AggregateQueryProcessor implements Query
 		}
 		return dataSet;
 	}
-
-	private double evaluateAggregateFunction(AggregateFunctions aggregateFunction, String columnValue)
+	//Method to evaluate aggregate function and set the result accordingly
+	private void evaluateAggregateFunction(AggregateFunctions aggregateFunction, String columnValue)
 	{
 		switch (aggregateFunction.getFunctionName())
 		{
@@ -92,14 +93,18 @@ public class AggregateQueryProcessor implements Query
 					value1 = Double.parseDouble(columnValue);
 					value2 = aggregateFunction.getResult();
 					result = value1 + value2;
+					aggregateFunction.setResult(result);
+					
 				}
 				catch (Exception e) 
 				{}
 				break;
 	
 			case "count":
-				
-				result++;
+				if(columnValue!=null)
+				{
+					aggregateFunction.setResult(count++);
+				}
 				break;
 	
 			case "min":
@@ -109,10 +114,14 @@ public class AggregateQueryProcessor implements Query
 				if (value2 == 0.0)
 				{
 					result = value1;
+					aggregateFunction.setResult(result);
+					
 				}
 				else if (value1 < value2)
 				{
 					result = value1;
+					aggregateFunction.setResult(result);
+					
 				}
 				break;
 	
@@ -124,21 +133,23 @@ public class AggregateQueryProcessor implements Query
 				if (value2 == 0.0)
 				{
 					result = value1;
+					aggregateFunction.setResult(result);
 				}
 				else if (value1 > value2)
 				{
 					result = value1;
+					aggregateFunction.setResult(result);
 				}
 				break;
 	
 			case "avg":
 				
-				count++;
 				try
 				{
 					value1 = Double.parseDouble(columnValue);
 					value2 = aggregateFunction.getResult();
 					result = value1 + value2;
+					aggregateFunction.setResult(result);
 				} catch (Exception e) 
 				{}
 				
@@ -147,7 +158,5 @@ public class AggregateQueryProcessor implements Query
 			default:
 				break;
 		}
-		return result;
-
 	}
 }

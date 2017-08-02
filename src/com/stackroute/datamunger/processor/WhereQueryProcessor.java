@@ -14,35 +14,36 @@ public class WhereQueryProcessor implements Query
 	private DataReader dataReader=new DataReader();
 	Map<Integer, ArrayList<String>> dataSet;
 	private BufferedReader bufferedReader=null;
-	private String line = "";
+	private String row = "";
 	ArrayList<String> rowData; //arraylist to store records
 	ArrayList<Boolean> flags=null;//arraylist to store result of evaluation of the individual criteria
 	ArrayList<String> requiredColumnList;
 	ArrayList<Criteria> criteriaList;
 	ArrayList<String> logicalOperatorList;
 	String[] header;
+	String fileName;
 
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParser) {
 		// TODO Auto-generated method stub
 		
-		String tableName=queryParser.getTableName();
+		fileName=queryParser.getFileName();
 		requiredColumnList=queryParser.getRequiredColumnList();
-		header=dataReader.getAllHeaders(tableName);
+		header=dataReader.getAllHeaders(fileName);
 		criteriaList=queryParser.getCriteriaList();
 		logicalOperatorList=queryParser.getLogicalOperatorList();
 		bufferedReader=dataReader.getBufferedReader();
 		dataSet=new LinkedHashMap<Integer, ArrayList<String>>();
 		int rowId = 0;
-		String[] lineData=null;
+		String[] rowsArray=null;
 		ArrayList<Integer> requiredColumnIndexes = dataReader.getAllColumnIndexes(requiredColumnList, header);
 		ArrayList<Integer> whereColumnIndexes = dataReader.getCriteriaListColumnIndexes(criteriaList, header);
 
 		try
 		{
-			while ((line = bufferedReader.readLine()) != null)
+			while ((row = bufferedReader.readLine()) != null)
 			{
-				lineData= line.split(",");
+				rowsArray= row.split(",");
 				rowData=new ArrayList<>();
 				flags=new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class WhereQueryProcessor implements Query
 					{
 						if (criteriaList.get(counter).getColumnName().equalsIgnoreCase(header[whereColumnIndexes.get(counter)]))
 						{
-							flags.add(dataReader.evaluateCriteria(criteriaList.get(counter).getOperator(),criteriaList.get(counter).getValue(), lineData[whereColumnIndexes.get(counter)]));
+							flags.add(dataReader.evaluateCriteria(criteriaList.get(counter).getOperator(),criteriaList.get(counter).getValue(), rowsArray[whereColumnIndexes.get(counter)]));
 						}
 					}
 					for (int counter=0; counter<logicalOperatorList.size(); counter++)
@@ -73,14 +74,14 @@ public class WhereQueryProcessor implements Query
 				{
 					if (criteriaList.get(0).getColumnName().trim().equalsIgnoreCase(header[whereColumnIndexes.get(0)].trim()))
 					{
-						flag =dataReader.evaluateCriteria(criteriaList.get(0).getOperator(), criteriaList.get(0).getValue(),lineData[whereColumnIndexes.get(0)]);
+						flag =dataReader.evaluateCriteria(criteriaList.get(0).getOperator(), criteriaList.get(0).getValue(),rowsArray[whereColumnIndexes.get(0)]);
 					}
 				}
 				if (flag)
 				{
 					for (Integer columnIndex : requiredColumnIndexes)
 					{
-						rowData.add(lineData[columnIndex]);
+						rowData.add(rowsArray[columnIndex]);
 					}
 					dataSet.put(rowId, rowData);
 					rowId++;

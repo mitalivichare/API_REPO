@@ -25,7 +25,7 @@ public class QueryParserTestCase {
 	{
 		queryParser.extractParameters("select * from emp");
 		
-		assertEquals("Table name test completed", "emp", queryParser.geTableName());
+		assertEquals("Table name test completed", "emp", queryParser.getFileName());
 		display("TableNameTest", queryParser);
 	}
 	@Test

@@ -12,32 +12,38 @@ public class SimpleQueryProcessor implements Query{
 	private DataReader dataReader=new DataReader();
 	private Map<Integer, ArrayList<String>> dataSet=null;
 	private BufferedReader bufferedReader=null;
-	private String line = "";
+	private String row = "";
 	private ArrayList<String> rowData=null; //arraylist to store records
 	private ArrayList<String> requiredColumnList;
+	private String[] header;
+	private int headerColumnArraylength, requiredColumnArrayLength,rowId;
+	private String[] rowsArray;
+
 
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParser)
 	{
-		String tableName=queryParser.getTableName();
+		String tableName=queryParser.getFileName();
 		requiredColumnList=queryParser.getRequiredColumnList();
-		String[] header=dataReader.getAllHeaders(tableName);
+		header=dataReader.getAllHeaders(tableName);
 		bufferedReader=dataReader.getBufferedReader(); 
+		dataSet = new LinkedHashMap<Integer, ArrayList<String>>();
+		headerColumnArraylength=header.length;
+		requiredColumnArrayLength=requiredColumnList.size();
+		rowsArray=null;
+		rowId = 0;
 		
 		if(requiredColumnList.contains("*"))
 		{
-			dataSet = new LinkedHashMap<Integer, ArrayList<String>>();
-			int rowId = 0;
-			String[] lineDataArray=null;
 			try
 			{
-				bufferedReader = new BufferedReader(new FileReader("d:\\"+ queryParser.geTableName().trim() +".csv"));
+				bufferedReader = new BufferedReader(new FileReader(queryParser.getFileName().trim()));
 				bufferedReader.readLine();
-				while ((line = bufferedReader.readLine()) != null)
+				while ((row = bufferedReader.readLine()) != null)
 				{
-					lineDataArray=line.split(",");
+					rowsArray=row.split(",");
 					rowData=new ArrayList<>();
-					for (String data:lineDataArray)
+					for (String data:rowsArray)
 						rowData.add(data);
 					dataSet.put(rowId,rowData);
 					rowId++;
@@ -49,18 +55,11 @@ public class SimpleQueryProcessor implements Query{
 		}
 		else
 		{
-			dataSet= new LinkedHashMap<Integer, ArrayList<String>>();
-			
-			//String[] requiredColumnArray =(String[]) requiredColumnList.toArray();
-			int headerColumnArraylength=header.length;
-			int requiredColumnArrayLength=requiredColumnList.size();
-			int rowId = 0;
-			String[] lineDataArray=null;
 			try
 			{
-				while ((line=bufferedReader.readLine()) != null)
+				while ((row=bufferedReader.readLine()) != null)
 				{
-					lineDataArray=line.split(",");
+					rowsArray=row.split(",");
 					rowData=new ArrayList<>();
 					for (int i=0; i<requiredColumnArrayLength; i++)
 					{
@@ -68,7 +67,7 @@ public class SimpleQueryProcessor implements Query{
 						{
 							if (requiredColumnList.get(i).trim().equalsIgnoreCase(header[j].trim()))
 							{
-								rowData.add(lineDataArray[j]);
+								rowData.add(rowsArray[j]);
 							}
 						}
 					}
@@ -79,8 +78,5 @@ public class SimpleQueryProcessor implements Query{
 			{}
 			return dataSet;
 		}
-		
-		// TODO Auto-generated method stub
 	}
-
 }
