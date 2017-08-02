@@ -1,11 +1,11 @@
-package com.stackroute.datamunger.reader;
+package com.stackroute.datamunger.processor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.stackroute.datamunger.parser.Criteria;
+import com.stackroute.datamunger.data.Criteria;
 
 public class DataReader 
 {
@@ -47,6 +47,17 @@ public class DataReader
 		}
 		return indexes;//returns the index of all columns
 	}//end of getAllColumnIndex method
+	
+	public int getSpecificColumnIndex(String selectedColumn, String[] headers) {
+		int headerLength = headers.length;
+		int index = -1;
+		for (int j = 0; j < headerLength; j++) {
+			if (selectedColumn.trim().equalsIgnoreCase(headers[j].trim())) {
+				index = Integer.valueOf(j);
+			}
+		}
+		return index;
+	}
 
 	// Method works on getting indexes of columns in where clause 
 	public ArrayList<Integer> getCriteriaListColumnIndexes(ArrayList<Criteria> criteriaList, String[] headerColumnArray) {

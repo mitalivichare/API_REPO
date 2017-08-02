@@ -1,4 +1,4 @@
-package com.stackroute.datamunger.parser;
+package com.stackroute.datamunger.data;
 
 public class Criteria 
 {

@@ -23,14 +23,14 @@ public class QueryProcessorTestCase
 		dataSet=new LinkedHashMap<Integer,ArrayList<String>>();
 	}
 	
-	@Test
+	//@Test
 	public void selectAllWithoutWhereTestCase()
 	{
 		dataSet=queryProcessor.executeQuery("select * from emp");
 		assertNotNull(dataSet);	
 		display("selectAllWithoutWhereTestCase",dataSet);	
 	}
-	@Test
+	//@Test
 	public void selectColumnsWithoutWhereTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,dept,name from emp");
@@ -39,7 +39,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereGreaterThanTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary > 30000");
@@ -48,7 +48,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereLessThanTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary < 35000");
@@ -57,7 +57,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereLessThanOrEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary <= 35000");
@@ -66,7 +66,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereGreaterThanOrEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
@@ -75,7 +75,7 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereNotEqualToTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 35000");
@@ -84,12 +84,90 @@ public class QueryProcessorTestCase
 		
 	}
 	
-	@Test
+	//@Test
 	public void withWhereEqualAndNotEqualTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where salary >= 30000 and salary <= 38000");
 		assertNotNull(dataSet);
 		display("withWhereEqualAndNotEqualTestCase",dataSet);
+		
+	}
+	//@Test
+	public void selectColumnsWithoutWhereWithOrderByTestCase(){
+		
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp order by salary");
+		assertNotNull(dataSet);
+		display("selectColumnsWithoutWhereWithOrderByTestCase",dataSet);
+		
+	}
+	
+	//@Test
+	public void selectColumnsWithWhereWithOrderByTestCase(){
+		
+		dataSet=queryProcessor.executeQuery("select city,name,salary from emp where city = Bangalore order by salary");
+		assertNotNull(dataSet);
+		display("selectColumnsWithWhereWithOrderByTestCase",dataSet);
+		
+	}
+	
+	@Test
+	public void simpleSumTestCase(){
+			
+			dataSet=queryProcessor.executeQuery("select sum(salary) from emp");
+			assertNotNull(dataSet);
+			display("simpleSumTestCase",dataSet);
+			
+		}
+	@Test
+	public void simpleCountTestCase(){
+			
+			dataSet=queryProcessor.executeQuery("select count(salary) from emp");
+			assertNotNull(dataSet);
+			display("simpleCountTestCase",dataSet);
+			
+		}
+	
+	@Test
+	public void simpleAverageTestCase(){
+			
+			dataSet=queryProcessor.executeQuery("select avg(salary) from emp");
+			assertNotNull(dataSet);
+			display("simpleCountTestCase",dataSet);
+			
+		}
+	@Test
+	public void simpleMaxTestCase(){
+			
+			dataSet=queryProcessor.executeQuery("select max(salary) from emp");
+			assertNotNull(dataSet);
+			display("simpleMaxTestCase",dataSet);
+			
+		}
+	
+	@Test
+	public void simpleMinTestCase(){
+			
+			dataSet=queryProcessor.executeQuery("select min(salary) from emp");
+			assertNotNull(dataSet);
+			display("simpleMinTestCase",dataSet);
+			
+		}
+	
+	//@Test
+	public void selectColumnsWithoutWhereWithGroupByCountTestCase(){
+		
+		dataSet=queryProcessor.executeQuery("select city,count(*) from emp group by city");
+		assertNotNull(dataSet);
+		display("selectColumnsWithoutWhereWithGroupByCountTestCase",dataSet);
+		
+	}
+	
+	//@Test
+	public void selectColumnsWithoutWhereWithGroupBySumTestCase(){
+		
+		dataSet=queryProcessor.executeQuery("select city,sum(salary) from emp group by city");
+		assertNotNull(dataSet);
+		display("selectColumnsWithoutWhereWithGroupBySumTestCase",dataSet);
 		
 	}
 	

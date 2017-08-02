@@ -3,13 +3,6 @@ package com.stackroute.datamunger.processor;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.stackroute.datamunger.parser.QueryParameter;
-import com.stackroute.datamunger.reader.AggregateTypeReader;
-import com.stackroute.datamunger.reader.GroupByTypeReader;
-import com.stackroute.datamunger.reader.OrderByTypeReader;
-import com.stackroute.datamunger.reader.SimpleTypeReader;
-import com.stackroute.datamunger.reader.WhereTypeReader;
-
 public class QueryProcessor 
 {
 	private Query queryObject;
@@ -31,23 +24,23 @@ public class QueryProcessor
 			switch(queryParser.getQueryType())
 			{
 				case "SIMPLE_QUERY":
-					queryObject=new SimpleTypeReader();
+					queryObject=new SimpleQueryProcessor();
 					break;
 					
 				case "WHERE_QUERY" :
-					queryObject=new WhereTypeReader();
+					queryObject=new WhereQueryProcessor();
 					break;
 					
 				case "ORDER_BY_QUERY" :
-					queryObject=new OrderByTypeReader();
+					queryObject=new OrderByQueryProcessor();
 					break;
 					
 				case "GROUP_BY_QUERY" :
-					queryObject=new GroupByTypeReader();
+					queryObject=new GroupByQueryProcessor();
 					break;
 				
 				case "AGGREGATE_QUERY" :
-					queryObject=new AggregateTypeReader();
+					queryObject=new AggregateQueryProcessor();
 					break;
 			
 			}

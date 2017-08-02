@@ -4,16 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import javax.management.Query;
-
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.stackroute.datamunger.parser.AggregateFunctions;
-import com.stackroute.datamunger.parser.Criteria;
-import com.stackroute.datamunger.parser.QueryParameter;
+import com.stackroute.datamunger.data.AggregateFunctions;
+import com.stackroute.datamunger.data.Criteria;
+import com.stackroute.datamunger.processor.QueryParameter;
 
 public class QueryParserTestCase {
 	
@@ -75,8 +72,8 @@ public class QueryParserTestCase {
 	{
 		queryParser.extractParameters("select count(empid),sum(esal) from emp");
 		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
-		aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
-		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		aggregateFunctionList.add(new AggregateFunctions("count","empid",0.0));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",0.0));
 		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("countColumnTest", queryParser);
 	}
@@ -87,7 +84,7 @@ public class QueryParserTestCase {
 		queryParser.extractParameters("select sum(esal) from emp");
 		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
 		//aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
-		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",0.0));
 		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("sumColumnTest", queryParser);
 	}
@@ -97,7 +94,7 @@ public class QueryParserTestCase {
 		queryParser.extractParameters("select sum(esal) from emp where city = Bangalore");
 		ArrayList<AggregateFunctions> aggregateFunctionList=new ArrayList<>();
 		//aggregateFunctionList.add(new AggregateFunctions("count","empid",null));
-		aggregateFunctionList.add(new AggregateFunctions("sum","esal",null));
+		aggregateFunctionList.add(new AggregateFunctions("sum","esal",0.0));
 		assertEquals("Count column test sucessfull", aggregateFunctionList.size(), queryParser.getAggregateFunctionsList().size());
 		display("sumColumnWithWhereTest", queryParser);
 	}

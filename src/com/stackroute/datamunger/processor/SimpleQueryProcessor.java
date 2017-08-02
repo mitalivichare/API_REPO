@@ -1,4 +1,4 @@
-package com.stackroute.datamunger.reader;
+package com.stackroute.datamunger.processor;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,21 +7,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.stackroute.datamunger.parser.Criteria;
-import com.stackroute.datamunger.parser.QueryParameter;
-import com.stackroute.datamunger.processor.Query;
-
-public class SimpleTypeReader implements Query{
+public class SimpleQueryProcessor implements Query{
 	
 	private DataReader dataReader=new DataReader();
-	Map<Integer, ArrayList<String>> dataSet;
+	private Map<Integer, ArrayList<String>> dataSet=null;
 	private BufferedReader bufferedReader=null;
 	private String line = "";
-	ArrayList<String> rowData; //arraylist to store records
-	ArrayList<Boolean> flags=null;//arraylist to store result of evaluation of the individual criteria
-	ArrayList<String> requiredColumnList;
-	ArrayList<Criteria> criteriaList;
-	ArrayList<String> logicalOperatorList;
+	private ArrayList<String> rowData=null; //arraylist to store records
+	private ArrayList<String> requiredColumnList;
 
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParser)
@@ -29,9 +22,7 @@ public class SimpleTypeReader implements Query{
 		String tableName=queryParser.getTableName();
 		requiredColumnList=queryParser.getRequiredColumnList();
 		String[] header=dataReader.getAllHeaders(tableName);
-		criteriaList=queryParser.getCriteriaList();
-		logicalOperatorList=queryParser.getLogicalOperatorList();
-		bufferedReader=dataReader.getBufferedReader();
+		bufferedReader=dataReader.getBufferedReader(); 
 		
 		if(requiredColumnList.contains("*"))
 		{

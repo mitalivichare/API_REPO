@@ -1,4 +1,4 @@
-package com.stackroute.datamunger.reader;
+package com.stackroute.datamunger.processor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.stackroute.datamunger.parser.Criteria;
-import com.stackroute.datamunger.parser.QueryParameter;
-import com.stackroute.datamunger.processor.Query;
+import com.stackroute.datamunger.data.Criteria;
 
-public class WhereTypeReader implements Query
+public class WhereQueryProcessor implements Query
 {
 	
 	private DataReader dataReader=new DataReader();
@@ -22,6 +20,7 @@ public class WhereTypeReader implements Query
 	ArrayList<String> requiredColumnList;
 	ArrayList<Criteria> criteriaList;
 	ArrayList<String> logicalOperatorList;
+	String[] header;
 
 	@Override
 	public Map<Integer, ArrayList<String>> executeQuery(QueryParameter queryParser) {
@@ -29,7 +28,7 @@ public class WhereTypeReader implements Query
 		
 		String tableName=queryParser.getTableName();
 		requiredColumnList=queryParser.getRequiredColumnList();
-		String[] header=dataReader.getAllHeaders(tableName);
+		header=dataReader.getAllHeaders(tableName);
 		criteriaList=queryParser.getCriteriaList();
 		logicalOperatorList=queryParser.getLogicalOperatorList();
 		bufferedReader=dataReader.getBufferedReader();

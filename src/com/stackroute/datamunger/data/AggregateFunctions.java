@@ -1,15 +1,15 @@
-package com.stackroute.datamunger.parser;
+package com.stackroute.datamunger.data;
 
 public class AggregateFunctions 
 {
 	private String functionName;
 	private String columnName;
-	private String result;
+	private double result;
 	
 	public AggregateFunctions()
 	{}
 
-	public AggregateFunctions(String functionName, String columnName, String result) {
+	public AggregateFunctions(String functionName, String columnName, Double result) {
 		super();
 		this.functionName = functionName;
 		this.columnName = columnName;
@@ -32,19 +32,21 @@ public class AggregateFunctions
 		this.columnName = columnName;
 	}
 
-	public String getResult() {
+	public double getResult() {
 		return result;
 	}
 
-	public void setResult(String result) {
+	public void setResult(double result) {
 		this.result = result;
 	}
 
 	@Override
 	public String toString() {
 		return "AggregateFunctions [functionName=" + functionName + ", columnName=" + columnName + ", result=" + result
-				+ "]";
+				+ ", getResult()=" + getResult() + "]";
 	}
+
+	
 	
 	
 

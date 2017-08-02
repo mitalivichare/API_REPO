@@ -1,9 +1,12 @@
-package com.stackroute.datamunger.parser;
+package com.stackroute.datamunger.processor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.stackroute.datamunger.data.AggregateFunctions;
+import com.stackroute.datamunger.data.Criteria;
 
 public class QueryParameter 
 {
@@ -19,8 +22,8 @@ public class QueryParameter
 	private Matcher matcher;
 	private String countColumn=null;
 	private String sumColumn=null;
-	private String[] countArray=null;
 	private String queryType="SIMPLE_QUERY";
+	private int index=0;
 	//Criteria criteria=new Criteria();
 	//private String baseQuery=null;
 	
@@ -49,24 +52,21 @@ public class QueryParameter
 		String[] groupBySplitedList;
 		String[] whereSplitedList;
 		String[] fromSplitedList;
-		if(query.contains("select") && query.contains("from"))
-		{
+		
 			orderBySplitedList=query.split("order by");
 			if(orderBySplitedList.length > 1)
 			{
 				orderByColumn=orderBySplitedList[1].trim();
 				queryType="ORDER_BY_QUERY";
 			}
-			else
-			{
+			
 				groupBySplitedList=orderBySplitedList[0].split("group by");
 				if(groupBySplitedList.length > 1)
 				{
 					groupByColumn=groupBySplitedList[1].trim();
 					queryType="GROUP_BY_QUERY";
 				}
-				else
-				{
+				
 					whereSplitedList=groupBySplitedList[0].split("where");
 					if(whereSplitedList.length > 1)
 					{
@@ -124,11 +124,7 @@ public class QueryParameter
 					{
 						requiredColumnList.add(baseQuery[i].trim());
 					}
-					
-				}
 		
-			}	
-		}
 		return this;
 	}
 	
@@ -146,6 +142,32 @@ public class QueryParameter
 			criteria.setValue(matcher.group(3).trim());
 		}
 		criteriaList.add(criteria);
+	}
+	
+	public int getGroupByColumnIndex()
+	{
+		int length=requiredColumnList.size();
+		for(int i=0; i <length; i++)
+		{
+			if(requiredColumnList.get(i).equalsIgnoreCase(groupByColumn))
+			{
+				index=i;
+			}
+		}
+		return index;
+	}
+	
+	public int getOrderByColumnIndex()
+	{
+		int length=requiredColumnList.size();
+		for(int i=0; i < length; i++)
+		{
+			if(requiredColumnList.get(i).equalsIgnoreCase(orderByColumn));
+			{
+				index=i;
+			}
+		}
+		return index;
 	}
 
 	public ArrayList<String> getRequiredColumnList() {
