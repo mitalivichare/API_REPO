@@ -30,7 +30,7 @@ public class QueryProcessorTestCase
 		assertNotNull(dataSet);	
 		display("selectAllWithoutWhereTestCase",dataSet);	
 	}
-	@Test
+	//@Test
 	public void selectColumnsWithoutWhereTestCase(){
 		
 		dataSet=queryProcessor.executeQuery("select city,dept,name from d:\\emp.csv");
@@ -74,7 +74,7 @@ public class QueryProcessorTestCase
 		display("withWhereNotEqualToTestCase",dataSet);
 		
 	}
-	
+	//run this
 	@Test
 	public void withWhereEqualAndNotEqualTestCase(){
 		
@@ -83,6 +83,8 @@ public class QueryProcessorTestCase
 		display("withWhereEqualAndNotEqualTestCase",dataSet);
 		
 	}
+	
+	//run this
 	@Test
 	public void selectColumnsWithoutWhereWithOrderByTestCase(){
 		
@@ -91,7 +93,7 @@ public class QueryProcessorTestCase
 		display("selectColumnsWithoutWhereWithOrderByTestCase",dataSet);
 		
 	}
-	
+	//run this
 	@Test
 	public void simpleSumTestCase(){
 			
@@ -109,6 +111,7 @@ public class QueryProcessorTestCase
 			
 		}
 	
+	//run this
 	@Test
 	public void simpleAverageTestCase(){
 			
@@ -117,7 +120,7 @@ public class QueryProcessorTestCase
 			display("simpleAvgTestCase",dataSet);
 			
 		}
-	@Test
+	//@Test
 	public void simpleMaxTestCase(){
 			
 			dataSet=queryProcessor.executeQuery("select max(salary) from d:\\emp.csv");
@@ -134,7 +137,7 @@ public class QueryProcessorTestCase
 			display("simpleMinTestCase",dataSet);
 			
 		}
-	
+	//run this
 	@Test
 	public void allAggregateTestCase(){
 			

@@ -47,7 +47,7 @@ public class QueryProcessor
 			dataSet=queryObject.executeQuery(queryParser);
 		}
 		catch(Exception e)
-		{}
+		{e.printStackTrace();}
 		return dataSet;
 	}
 

@@ -7,7 +7,7 @@ import java.util.Map;
 public class GroupByQueryProcessor implements Query{
 	
 	private Map<Integer,ArrayList<String>> dataSet;
-	private DataReader dataReader=new DataReader();
+	private QueryUtility dataReader=new QueryUtility();
 	private String[] header;
 	private BufferedReader bufferedReader=null;
 	private ArrayList<String> requireColumnList;

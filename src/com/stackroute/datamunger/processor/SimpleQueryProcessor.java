@@ -9,15 +9,16 @@ import java.util.Map;
 
 public class SimpleQueryProcessor implements Query{
 	
-	private DataReader dataReader=new DataReader();
+	private QueryUtility queryUtility=new QueryUtility();
 	private Map<Integer, ArrayList<String>> dataSet=null;
 	private BufferedReader bufferedReader=null;
 	private String row = "";
 	private ArrayList<String> rowData=null; //arraylist to store records
 	private ArrayList<String> requiredColumnList;
-	private String[] header;
+	private ArrayList<String> header;
 	private int headerColumnArraylength, requiredColumnArrayLength,rowId;
 	private String[] rowsArray;
+	int indexes=0;
 
 
 	@Override
@@ -25,10 +26,10 @@ public class SimpleQueryProcessor implements Query{
 	{
 		String tableName=queryParser.getFileName();
 		requiredColumnList=queryParser.getRequiredColumnList();
-		header=dataReader.getAllHeaders(tableName);
-		bufferedReader=dataReader.getBufferedReader(); 
+		header=queryUtility.getAllHeaders(tableName);
+		bufferedReader=queryUtility.getBufferedReader(); 
 		dataSet = new LinkedHashMap<Integer, ArrayList<String>>();
-		headerColumnArraylength=header.length;
+		headerColumnArraylength=header.size();
 		requiredColumnArrayLength=requiredColumnList.size();
 		rowsArray=null;
 		rowId = 0;
@@ -41,7 +42,7 @@ public class SimpleQueryProcessor implements Query{
 				bufferedReader.readLine();
 				while ((row = bufferedReader.readLine()) != null)
 				{
-					rowsArray=row.split(",");
+					rowsArray=row.split("(\\s*,\\s*)");
 					rowData=new ArrayList<>();
 					for (String data:rowsArray)
 						rowData.add(data);
@@ -59,13 +60,14 @@ public class SimpleQueryProcessor implements Query{
 			{
 				while ((row=bufferedReader.readLine()) != null)
 				{
-					rowsArray=row.split(",");
+					rowsArray=row.split("(\\s*,\\s*)");
 					rowData=new ArrayList<>();
+					
 					for (int i=0; i<requiredColumnArrayLength; i++)
 					{
 						for (int j=0; j<headerColumnArraylength; j++)
 						{
-							if (requiredColumnList.get(i).trim().equalsIgnoreCase(header[j].trim()))
+							if (requiredColumnList.get(i).trim().equalsIgnoreCase(header.get(j).trim()))
 							{
 								rowData.add(rowsArray[j]);
 							}

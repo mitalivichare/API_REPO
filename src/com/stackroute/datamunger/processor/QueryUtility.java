@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.stackroute.datamunger.data.Criteria;
 
-public class DataReader 
+public class QueryUtility 
 {
-	
-	private String[] fileHeaders;
+	String[] headers;
+	private ArrayList<String> fileHeaders;
 	private BufferedReader bufferedReader;
 	private String row = "";
 	ArrayList<String> rowData; //arraylist to store records
@@ -19,40 +20,42 @@ public class DataReader
 	private double value,lineValue;
 	
 	//method for reading firstline of the file i.e the header columns
-	public String[] getAllHeaders(String fileName) 
+	public ArrayList<String> getAllHeaders(String fileName) 
 	{
 		try 
 		{
 			bufferedReader = new BufferedReader(new FileReader(fileName));
 			row = bufferedReader.readLine();
-			fileHeaders = row.split(",");
+			fileHeaders =new ArrayList<String> (Arrays.asList(row.split(",")));
+		
 		}
 		catch (IOException e) {
+			e.printStackTrace();
 		}
-		return fileHeaders; //returning the array holding header columns
+		return fileHeaders; //returning the arrayList holding header columns
 	}//end of fetchHeader method
 	
 	//Method works on getting indexes of all columns in the file
-	public ArrayList<Integer> getAllColumnIndexes(ArrayList<String> requiredColumnList, String[] headerColumnArray) {
+	public ArrayList<Integer> getAllColumnIndexes(ArrayList<String> requiredColumnList, ArrayList<String> headerColumnArray) {
 		ArrayList<Integer> indexes=new ArrayList<>();
 		int requiredColumnListLength=requiredColumnList.size();
-		int headerColummnArrayLength= headerColumnArray.length;
+		int headerColummnArrayLength= headerColumnArray.size();
 		for (int i=0; i<requiredColumnListLength; i++)
 		{
 			for (int j=0; j<headerColummnArrayLength; j++)
 			{
-				if (requiredColumnList.get(i).trim().equalsIgnoreCase(headerColumnArray[j].trim()))
+				if (requiredColumnList.get(i).trim().equalsIgnoreCase(headerColumnArray.get(j).trim()))
 					indexes.add(j);
 			}
 		}
 		return indexes;//returns the index of all columns
 	}//end of getAllColumnIndex method
 	
-	public int getSpecificColumnIndex(String selectedColumn, String[] headers) {
-		int headerLength = headers.length;
+	public int getSpecificColumnIndex(String selectedColumn, ArrayList<String> headers) {
+		int headerLength = headers.size();
 		int index = -1;
 		for (int j = 0; j < headerLength; j++) {
-			if (selectedColumn.trim().equalsIgnoreCase(headers[j].trim())) {
+			if (selectedColumn.trim().equalsIgnoreCase(headers.get(j).trim())) {
 				index = Integer.valueOf(j);
 			}
 		}
@@ -60,13 +63,13 @@ public class DataReader
 	}
 
 	// Method works on getting indexes of columns in where clause 
-	public ArrayList<Integer> getCriteriaListColumnIndexes(ArrayList<Criteria> criteriaList, String[] headerColumnArray) {
+	public ArrayList<Integer> getCriteriaListColumnIndexes(ArrayList<Criteria> criteriaList, ArrayList<String> headerColumnArray) {
 		ArrayList<Integer> criteriaListColumnIndexes=new ArrayList<>();
-		int headerColumnArrayLength=headerColumnArray.length;
+		int headerColumnArrayLength=headerColumnArray.size();
 		for (Criteria criteria:criteriaList) {
 			for (int i=0; i<headerColumnArrayLength; i++)
 			{
-				if (criteria.getColumnName().trim().equalsIgnoreCase(headerColumnArray[i]))
+				if (criteria.getColumnName().trim().equalsIgnoreCase(headerColumnArray.get(i)))
 				{
 					criteriaListColumnIndexes.add(i);
 				}
@@ -80,6 +83,8 @@ public class DataReader
 	public boolean evaluateCriteria(String operator, String criteriaValue, String actualLineValue)
 	{
 		boolean flag = false;
+		if(!(actualLineValue.isEmpty()))
+		{
 		switch(operator)
 		{
 		case ">":
@@ -123,6 +128,7 @@ public class DataReader
 			if (!(stringLineValueForNotEqualCase.equals(stringValueForNotEqualCase)))
 				flag=true;
 			break;
+		}
 		}
 		return flag;
 	}
